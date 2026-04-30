@@ -3,6 +3,7 @@ import { streamText, generateText } from 'ai';
 import { getServicesAsText, getServices } from '@/lib/constants/services';
 import { getNextAvailableSlots } from '@/lib/constants/appointments';
 import { finalizeBooking } from '@/lib/constants/booking';
+import { createAdminClient } from '@/lib/supabase/server';
 
 export const dynamic = 'force-dynamic';
 const groq = createGroq({ apiKey: process.env.GROQ_API_KEY });
@@ -12,11 +13,18 @@ export async function POST(req: Request) {
     const { messages } = await req.json();
     const lastUserMessage = messages.filter((m: any) => m.role === 'user').at(-1)?.content || "";
     const recentMessages = messages.slice(-6);
+    const supabase = await createAdminClient();
 
     // 1. DATA E HORA
     const now = new Date();
-    const brDate = now.toLocaleDateString('pt-BR', { timeZone: 'America/Sao_Paulo' }).split('/').reverse().join('-');
-    const brTime = now.toLocaleTimeString('pt-BR', { timeZone: 'America/Sao_Paulo', hour: '2-digit', minute: '2-digit' });
+    const formatter = new Intl.DateTimeFormat('pt-BR', {
+      timeZone: 'America/Sao_Paulo',
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    });
+    const parts = formatter.formatToParts(now);
+    const brDate = `${parts.find(p => p.type === 'year')?.value}-${parts.find(p => p.type === 'month')?.value}-${parts.find(p => p.type === 'day')?.value}`;
 
     // 🧠 PASSO 1: A LUNA "PENSANDO" (EXTRAÇÃO SEMÂNTICA)
     const { text: extractedJson } = await generateText({
