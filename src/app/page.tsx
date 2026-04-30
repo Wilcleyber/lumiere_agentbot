@@ -1,100 +1,71 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import { useChat } from '@ai-sdk/react';
+import { useEffect, useRef } from "react";
+
+export default function ChatPage() {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  
+  const { messages, input, handleInputChange, handleSubmit, isLoading } = useChat({
+  api: '/api/chat',
+  // Essa função garante que mandamos apenas o texto para a IA, evitando lixo de ferramentas
+  onToolCall: ({ toolCall }) => {
+    console.log(">>> [CLIENT] Chamando ferramenta:", toolCall.toolName);
+  },
+  onError: (err) => {
+    console.error("❌ ERRO NO CLIENTE:", err);
+  },
+});
+
+  // Auto-scroll para as novas mensagens
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTo({
+        top: scrollRef.current.scrollHeight,
+        behavior: 'smooth'
+      });
+    }
+  }, [messages]);
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <div className="flex flex-col h-screen bg-slate-50 text-slate-900">
+      <header className="bg-slate-900 p-4 text-white shadow-lg">
+        <h1 className="font-bold text-emerald-400">Luna | Lumière V2</h1>
+      </header>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
+      <main ref={scrollRef} className="flex-1 overflow-y-auto p-4 space-y-4">
+        {messages.length === 0 && (
+          <div className="text-center text-slate-400 mt-10">Diga um "Oi" para a Luna iniciar...</div>
+        )}
+        
+        {messages.map((m) => (
+          <div key={m.id} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+            <div className={`max-w-[80%] p-3 rounded-xl shadow-sm ${
+              m.role === 'user' ? 'bg-emerald-600 text-white' : 'bg-white border border-slate-200'
+            }`}>
+              <span className="whitespace-pre-wrap">{m.content}</span>
+            </div>
+          </div>
+        ))}
+        {isLoading && <div className="text-xs text-slate-400 animate-pulse">Luna está pensando...</div>}
       </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
+
+      <footer className="p-4 bg-white border-t">
+        <form onSubmit={handleSubmit} className="max-w-4xl mx-auto flex gap-2">
+          <input
+            className="flex-1 p-3 border border-slate-300 rounded-xl outline-none focus:border-emerald-500 text-slate-900"
+            value={input}
+            onChange={handleInputChange}
+            placeholder="Fale com a Luna..."
           />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+          <button 
+            type="submit" 
+            disabled={isLoading || !input.trim()}
+            className="bg-emerald-600 hover:bg-emerald-700 disabled:bg-slate-300 text-white px-6 rounded-xl font-medium transition-colors"
+          >
+            Enviar
+          </button>
+        </form>
       </footer>
     </div>
   );

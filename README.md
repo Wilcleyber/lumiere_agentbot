@@ -11,7 +11,7 @@ Esse é o poder do Lumière Agentbot. Não é apenas um chatbot; é uma agente v
 ---
 
 ## 📸 Demonstração em Tempo Real
-![Lumière Demo](.media/Demo.gif)
+![Lumière Demo](./media/Demo.gif)
 
 ---
 
@@ -19,11 +19,11 @@ Esse é o poder do Lumière Agentbot. Não é apenas um chatbot; é uma agente v
 
 ### 🤖 1. Converse com a Luna
 Deseja sentir a experiência do cliente? Agende um serviço agora com nossa IA.
-👉 [**Testar Agente Virtual (Vercel)**](Link-do-seu-bot-na-vercel)
+👉 [**Testar Agente Virtual (Vercel)](https://lumiere-agentbot.vercel.app/)**
 
 ### 📊 2. Dashboard Administrativo
 Veja o agendamento cair em tempo real e gerencie a clínica como a dona do negócio.
-👉 [**Acessar Dashboard Lumière**](https://lumiere-ten-vert.vercel.app)
+👉 [**Acessar Dashboard Lumière](https://lumiere-ten-vert.vercel.app)**
 
 ---
 
@@ -60,5 +60,4 @@ O projeto foi construído utilizando a Stack Moderna de Alta Performance:
     Resiliência: Sistema de keep-alive automático para evitar hibernação do banco de dados gratuito.
 
 Desvolvido por Wilcleyber 🚀
-# lumiere_agentbot
 # lumiere_agentbot
