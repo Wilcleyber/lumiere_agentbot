@@ -1,36 +1,63 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+```markdown
+✨ Lumière Agentbot: Sua Clínica Nunca Fecha.
 
-## Getting Started
+Imagine encerrar o expediente com apenas 2 agendamentos para o dia seguinte.
+Você vai dormir, descansa e, enquanto isso, sua clínica continua "viva".
 
-First, run the development server:
+Quando você abre as portas na manhã seguinte e checa o Dashboard, a surpresa: aqueles 2 agendamentos se transformaram em 7.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Esse é o poder do Lumière Agentbot. Não é apenas um chatbot; é uma agente virtual autônoma que trabalha 24/7, convertendo conversas em faturamento real enquanto você foca no que realmente importa: seus clientes.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📸 Demonstração em Tempo Real
+![Lumière Demo](.media/Demo.gif)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 🚀 Experiência Interativa
 
-To learn more about Next.js, take a look at the following resources:
+### 🤖 1. Converse com a Luna
+Deseja sentir a experiência do cliente? Agende um serviço agora com nossa IA.
+👉 [**Testar Agente Virtual (Vercel)**](Link-do-seu-bot-na-vercel)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 📊 2. Dashboard Administrativo
+Veja o agendamento cair em tempo real e gerencie a clínica como a dona do negócio.
+👉 [**Acessar Dashboard Lumière**](https://lumiere-ten-vert.vercel.app)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 🔄 Fluxo do Ecossistema
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```mermaid
+graph LR
+    A[Cliente] -->|Linguagem Natural| B(Luna IA - Groq)
+    B -->|Validação Semântica| C{Banco de Dados}
+    C -->|Slot Disponível| D[Agendamento Confirmado]
+    D -->|Push Notification| E[Dashboard Administrativo]
+    E -->|Gestão| F[Dona da Clínica]
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+🛠️ Especificações Técnicas
+
+O projeto foi construído utilizando a Stack Moderna de Alta Performance:
+
+    Frontend: React 18 com Next.js 14 (App Router).
+
+    Inteligência Artificial: SDK Vercel AI com modelo Llama 3 (via Groq API) para processamento de linguagem natural e extração de intenção em JSON.
+
+    Backend & Banco de Dados: Supabase (PostgreSQL) com gerenciamento de estado em tempo real.
+
+    Estilização: Tailwind CSS & Shadcn/UI (Design System Premium).
+
+    Infraestrutura: Vercel com Cron Jobs para manutenção de persistência (Keep-alive).
+
+💎 Diferenciais do Projeto
+
+    Extração de Intenção: A IA não apenas responde, ela entende horários e serviços convertendo gírias em dados estruturados.
+
+    Interface Dark Premium: Design focado na experiência de luxo de clínicas de estética.
+
+    Resiliência: Sistema de keep-alive automático para evitar hibernação do banco de dados gratuito.
+
+Desvolvido por Wilcleyber 🚀
+# lumiere_agentbot
