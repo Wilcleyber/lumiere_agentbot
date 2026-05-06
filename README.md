@@ -27,8 +27,7 @@ Veja o agendamento cair em tempo real e gerencie a clínica como a dona do negó
 ---
 
 ## 🔄 Fluxo do Ecossistema
-```mermaid
-graph LR
+
     A[Cliente] -->|Linguagem Natural| B(Luna IA - Groq)
     B -->|Validação Semântica| C{Banco de Dados}
     C -->|Slot Disponível| D[Agendamento Confirmado]
